@@ -74,6 +74,12 @@ func TestMainHandlerWhenWrongCountAndWrongCity(t *testing.T) {
 			err:           "count missing",
 			name:          "count is empty",
 		},
+		{
+			requestString: "/cafe?count=0city=moscow",
+			statusCode:    http.StatusBadRequest,
+			err:           "wrong count value",
+			name:          "count is 0",
+		},
 	}
 
 	for _, tc := range cases {
@@ -105,6 +111,18 @@ func TestMainHandlerWhenRequestIsValid(t *testing.T) {
 			requestString: "/cafe?count=3&city=moscow",
 			statusCode:    http.StatusOK,
 			name:          "3 cities statusOk",
+		},
+		{
+			count:         4,
+			requestString: "/cafe?count=5&city=moscow",
+			statusCode:    http.StatusOK,
+			name:          "5 cities statusOk",
+		},
+		{
+			count:         4,
+			requestString: "/cafe?count=55&city=moscow",
+			statusCode:    http.StatusOK,
+			name:          "55 cities statusOk",
 		},
 	}
 
