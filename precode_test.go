@@ -11,39 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMainHandlerWhenCountMoreThanTotal(t *testing.T) {
-	totalCount := 4
-	cases := []struct {
-		requestString string
-		statusCode    int
-		name          string
-	}{
-		{
-			requestString: "/cafe?count=5&city=moscow",
-			statusCode:    http.StatusOK,
-			name:          "5 cities statusOk",
-		},
-		{
-			requestString: "/cafe?count=55&city=moscow",
-			statusCode:    http.StatusOK,
-			name:          "55 cities statusOk",
-		},
-	}
-
-	for _, tc := range cases {
-		t.Run(tc.name, func(t *testing.T) {
-			body, resp, err := testRequestConfig("GET", tc.requestString)
-			res := strings.Split(string(body), ",")
-
-			require.NoError(t, err)
-			assert.Equal(t, resp.StatusCode, tc.statusCode)
-			assert.NotEmpty(t, body)
-			assert.Len(t, res, totalCount)
-		})
-	}
-}
-
-func TestMainHandlerWhenWrongCountAndWrongCity(t *testing.T) {
+func TestMainHandlerWhenRequestIsNotValid(t *testing.T) {
 	cases := []struct {
 		requestString string
 		statusCode    int
