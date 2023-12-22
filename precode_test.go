@@ -81,7 +81,7 @@ func TestMainHandlerWhenRequestIsValid(t *testing.T) {
 			name:          "3 cities statusOk",
 		},
 		{
-			count:         4,
+			count:         5,
 			requestString: "/cafe?count=5&city=moscow",
 			statusCode:    http.StatusOK,
 			name:          "5 cities statusOk",
